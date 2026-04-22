@@ -1,4 +1,5 @@
-name: pull-request.yml
+name: pull request
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -6,6 +7,16 @@ on:
 jobs:
   test:
     runs-on: ubuntu-22.04
+    container:
+      image: semgrep/semgrep:1.160.0
     steps:
-      - uses: actions/checkout@v4  # Clones your code to the runner
-          
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run semgrep
+        run: semgrep scan --sarif --sarif-output=results.sarif
+
+      - name: Upload SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
