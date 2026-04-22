@@ -1,11 +1,47 @@
-name: pull-request.yml
+name: pull request
+
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  security-events: write
 
 jobs:
-  test:
+  semgrep:
     runs-on: ubuntu-22.04
+    container:
+      image: semgrep/semgrep:1.160.0
     steps:
-      - uses: actions/checkout@v4  # Clones your code to the runner
-          
+      - uses: actions/checkout@v4
+
+      - name: Run semgrep
+        run: semgrep scan --sarif --sarif-output=results.sarif
+
+      - name: Upload SARIF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-results
+          path: results.sarif
+
+      - name: Upload SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+
+  opa:
+    needs: semgrep
+    runs-on: ubuntu-22.04
+    container:
+      image: openpolicyagent/conftest:v0.59.0
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download SARIF artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: semgrep-results
+
+      - name: Verify no CRITICAL findings
+        run: conftest test results.sarif --parser json --policy policy

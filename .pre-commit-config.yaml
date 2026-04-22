@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: gitleaks-podman
+        name: Detect hardcoded secrets
+        description: Detect hardcoded secrets using Gitleaks
+        entry: bash -c 'if [[ -z "$CI" ]]; then podman run --rm -v "$PWD:/repo" -w /repo zricethezav/gitleaks:v8.30.1 git --pre-commit --staged --redact --verbose; else echo "Skipping check in CI..."; fi'
+        language: system
+        pass_filenames: false
+
