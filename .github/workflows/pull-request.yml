@@ -1,11 +1,71 @@
-name: pull-request.yml
+name: pull request
+
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  security-events: write
 
 jobs:
-  test:
+  semgrep:
     runs-on: ubuntu-22.04
+    container:
+      image: semgrep/semgrep:1.160.0
     steps:
-      - uses: actions/checkout@v4  # Clones your code to the runner
-          
+      - uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        run: semgrep scan --sarif --sarif-output=semgrep_results.sarif
+
+      - name: Upload Semgrep SARIF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-results
+          path: semgrep_results.sarif
+
+      - name: Upload Semgrep SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep_results.sarif
+          category: semgrep
+
+  trivy:
+    runs-on: ubuntu-22.04
+    container:
+      image: aquasec/trivy:0.70.0
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy
+        run: trivy fs --format sarif -o trivy_results.sarif --scanners vuln,config,secret,license .
+
+      - name: Upload Trivy SARIF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-results
+          path: trivy_results.sarif
+
+      - name: Upload Trivy SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy_results.sarif
+          category: trivy
+
+  opa:
+    needs: [semgrep, trivy]
+    runs-on: ubuntu-22.04
+    container:
+      image: openpolicyagent/conftest:v0.59.0
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download SARIF artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Verify Semgrep findings
+        run: conftest test semgrep-results/semgrep_results.sarif --parser json --policy policy/semgrep.rego
+
+      - name: Verify Trivy findings
+        run: conftest test trivy-results/trivy_results.sarif --parser json --policy policy/trivy.rego
