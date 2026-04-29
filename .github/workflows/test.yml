@@ -25,7 +25,6 @@ jobs:
           subscription-id: ${{ secrets.THEATESTER_SUBSCRIPTION_ID }}
 
       - name: Get secret from Azure Key Vault
-        uses: azure/cli@v2
         id: get_secret
         run: |
           SECRET_VALUE=$(az keyvault secret show \
