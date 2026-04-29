@@ -13,6 +13,7 @@ jobs:
 
   release-please:
     runs-on: ubuntu-22.04
+    needs: [backend-tests]
     permissions:
       contents: write
       issues: write
