@@ -1,6 +1,6 @@
 from importlib.metadata import version, PackageNotFoundError
 
-from fastapi import FastAPI, __version__
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -25,6 +25,10 @@ def create_app():
     @app.get("/api/health")
     def health_check():
         return {"status": "ok"}
+
+    @app.get("/api/version")
+    def version():
+        return {"version": get_version()}
 
 
     @app.get("/api/message")
