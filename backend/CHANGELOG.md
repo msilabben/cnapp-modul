@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/msilabben/cnapp-module/compare/backend@v0.1.1...backend@v0.1.2) (2026-04-29)
+
+
+### Bug Fixes
+
+* **backend:** get dynamic version ([b41cca5](https://github.com/msilabben/cnapp-module/commit/b41cca50dec215f7cbe8b39c6a341394e3f165e7))
+
 ## [0.1.1](https://github.com/msilabben/cnapp-module/compare/backend@v0.1.0...backend@v0.1.1) (2026-04-29)
 
 
