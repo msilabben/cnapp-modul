@@ -72,7 +72,7 @@ jobs:
           category: trivy
 
   opa:
-    if: false # Remove this to enable Policy as Code (PaC) with Open Policy Agent
+    if: true # Remove this to enable Policy as Code (PaC) with Open Policy Agent
     needs: [semgrep, trivy]
     runs-on: ubuntu-22.04
     container:
