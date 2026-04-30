@@ -3,13 +3,15 @@ from importlib.metadata import version, PackageNotFoundError
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-API_KEY = "password"
+API_KEY = "password6546516084<5$35872364302"
+
 
 def get_version() -> str:
     try:
         return version("backend")
     except PackageNotFoundError:
         return "0.0.0-dev"
+
 
 def create_app():
     app = FastAPI(title="Simple FastAPI API", version=get_version())
@@ -22,7 +24,6 @@ def create_app():
         allow_headers=["*"],
     )
 
-
     @app.get("/api/health")
     def health_check():
         return {"status": "ok"}
@@ -30,7 +31,6 @@ def create_app():
     @app.get("/api/version")
     def api_version():
         return {"version": get_version()}
-
 
     @app.get("/api/message")
     def get_message():
