@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   pre-commit:
-    if: false # Remove this to enable pre-commit / secret scanning
     runs-on: ubuntu-22.04
     name: Run pre-commit
     steps:
