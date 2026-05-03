@@ -1,4 +1,4 @@
-name: Reusable Gitleaks
+name: Gitleaks
 
 on:
   workflow_call:
