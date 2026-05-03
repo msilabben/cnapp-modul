@@ -1,0 +1,94 @@
+{
+  "id": 15709689,
+  "name": "main",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "msilabben/cnapp-module",
+  "enforcement": "disabled",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/main"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "required_linear_history"
+    },
+    {
+      "type": "required_signatures"
+    },
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 1,
+        "dismiss_stale_reviews_on_push": true,
+        "required_reviewers": [],
+        "require_code_owner_review": true,
+        "require_last_push_approval": true,
+        "required_review_thread_resolution": true,
+        "allowed_merge_methods": [
+          "squash",
+          "rebase",
+          "merge"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": true,
+        "do_not_enforce_on_create": true,
+        "required_status_checks": [
+          {
+            "context": "opa",
+            "integration_id": 15368
+          },
+          {
+            "context": "Run pre-commit",
+            "integration_id": 15368
+          },
+          {
+            "context": "backend-tests / pytest",
+            "integration_id": 15368
+          },
+          {
+            "context": "gitleaks / gitleaks",
+            "integration_id": 15368
+          }
+        ]
+      }
+    },
+    {
+      "type": "code_scanning",
+      "parameters": {
+        "code_scanning_tools": [
+          {
+            "tool": "CodeQL",
+            "security_alerts_threshold": "critical",
+            "alerts_threshold": "errors"
+          },
+          {
+            "tool": "Semgrep OSS",
+            "security_alerts_threshold": "critical",
+            "alerts_threshold": "errors"
+          },
+          {
+            "tool": "Trivy",
+            "security_alerts_threshold": "critical",
+            "alerts_threshold": "errors"
+          }
+        ]
+      }
+    }
+  ],
+  "bypass_actors": []
+}
