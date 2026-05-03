@@ -1,0 +1,30 @@
+name: workflow.yml
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - run: git fetch origin "${{ github.event.pull_request.base.sha }}" --depth=1
+
+      - name: Comment if PR is large
+        run: bash ./bin/pr_comment.sh \
+          "${{ github.event.pull_request.number }}" \
+          "${{ github.event.pull_request.base.sha }}" \
+          "${{ github.event.pull_request.head.sha }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          THRESHOLD: ${{ secrets.PR_THRESHOLD }}
+            
