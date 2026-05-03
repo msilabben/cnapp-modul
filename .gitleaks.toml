@@ -1,4 +1,10 @@
-[allowlist]
+title = "Gitleaks config"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Ignore only secret.txt"
 paths = [
-  'secret.txt',
+  '''(^|/)secret\.txt$'''
 ]
