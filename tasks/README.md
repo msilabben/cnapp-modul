@@ -133,9 +133,15 @@ Si ifra til fasilitator hvis dere møter på problemer.
 4. Se gjennom filem og observer at det er en liste over prosjektets pakker i dette tidspunktet. 
 
 ### Scheduled pipeline 
-1. Observer i PR'er at dependabot har kjørt og laget PR'er. Hvis det ikke er noen PR'er der, se i det originalet repoet. 
-2. Velg en PR som starter med "build(deps)".. 
-3. Se at den samme workflowen som kjører i de tidligere pipelinene, kjører også nå. Siden sjekkene vil kjøre på dependabot sin PR, og dermed vil de andre sjekkene fange opp eventuelle ting som dependabot introduserer. 
+1. Gå til settings i repositoriet, og velg "Advanced security" fra menyen til venstre. 
+2. Enable "Dependabot" ved å enable: 
+- Dependency graph
+- Dependabot alers 
+- Dependabot security updates
+- Dependabot version updates 
+3. Observer i PR'er at dependabot har kjørt og laget PR'er. Hvis det ikke er noen PR'er der, se i det originalet repoet. 
+4. Velg en PR som starter med "build(deps)".. 
+5. Se at den samme workflowen som kjører i de tidligere pipelinene, kjører også nå. Siden sjekkene vil kjøre på dependabot sin PR, og dermed vil de andre sjekkene fange opp eventuelle ting som dependabot introduserer. 
 
 
 ## Git - repository 
@@ -146,13 +152,17 @@ Si ifra til fasilitator hvis dere møter på problemer.
 3. Legg til forandringene, og commiten med en valgfri commit-melding. 
 4. Push forandringene til main direkte. 
 5. Gå til GitHub, og observer at forandringene ble gjort på main. 
-6. Gå til settings på repo, og klikk på "branches". Så klikk på "Add classic branch protection rules". 
-7. Så gi regelsettet et navn, deretter klikk på regelen "Require a pull request before merging", deretter avklikk "Reuire approvals", og tilslutt klik på "Require review from Code Owners". 
+6. Last ned filen "branch_protection.json"
+7. Gå til settings på repo, og klikk på "rules", og deretter "Rulesets". Så klikk på "New ruleset", og deretter "import a ruleset". Velg den filen dere akkurat lastet ned. Unver "Enforcement status" velg "Active". Skroll nedover på regelsettet, og merk dere hva som har blitt enablet. 
 8. Tryk så på den grønne knappen "create". 
 9. Gjør om på det du gjorde istad på steg 2. Legg til og commit forandringene, og prøv å push til main. Hvis ikke det funker, prøv `git push --force`. 
 
 ### CODEOWNERS
-1. ... 
+1. Gå til codespaces, og se på filen ".github/CODEOWNERS". 
+2. Bytt ut "@msilabben" med ditt eget brukernavn. 
+3. Legg til filen, commit forandringene og push til GitHub.
+4. Prøv å merge til main, går det? 
+5. Assign en av fasilitatorene til å review PRen. Og si ifra til dem muntlig. 
 
 ### Evil fork 
 1. Gå til codespaces, og bytt branch til main (`git checkout main`), og hent inn de nyeste endringene fra main (`git pull`). Bytt til en annen branch (`git checkout -b "evil_branch"`). 
