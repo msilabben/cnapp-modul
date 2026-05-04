@@ -41,12 +41,18 @@ Si ifra til fasilitator hvis dere møter på problemer.
 5. Fiks ".gitleaks.toml" ved å kjøre `git restore --staged .gitleaks.toml`, og `git restore .gitleaks.toml`. 
 
 
-
-### Commit sårbar kode 
-1. 
-
-
 ### Signerte commits
+**Commit som noen andre**
+1. I terminalen, sjekk loggen til git (`git log`) for se om det er en bruker du kan commite for.
+2. Kopier brukernes nav og epost, og oppdater din egen git config med det nye navnet og eposten: 
+- `git config user.email "43639886+collinlokken@users.noreply.github.com"`
+- `git config user.name "Christopher Collin Løkken"`
+3. Gjør en vilkårlig forandring, legg de til og commit dem, og push til GitHub. 
+4. Gå til GitHub og se på commiten, og legg merke til hvilken bruker som committet forandringene. 
+5. Gå tilbake til codespaces, og sett eposten og navnet til ditt eget igjen. 
+
+**Signer commit**
+
 1. I terminal, skriv inn `ssh-keygen -t ed25519 -C "navn@epost.com"`. 
 2. Kopier den offentlige nøkkelen. Det kan gjøres med å printe ut innholdet i filen og kopiere den. Print ut innholdet med `cat /home/vscode/.ssh/id_ed25519.pub` (pass på at filnavnet er korrekt) og legg den til på GitHub brukeren din. 
     - Inne på GitHub, trykk på ditt brukerikon og velg "settings". 
@@ -127,9 +133,15 @@ Si ifra til fasilitator hvis dere møter på problemer.
 4. Se gjennom filem og observer at det er en liste over prosjektets pakker i dette tidspunktet. 
 
 ### Scheduled pipeline 
-1. Observer i PR'er at dependabot har kjørt og laget PR'er. Hvis det ikke er noen PR'er der, se i det originalet repoet. 
-2. Velg en PR som starter med "build(deps)".. 
-3. Se at den samme workflowen som kjører i de tidligere pipelinene, kjører også nå. Siden sjekkene vil kjøre på dependabot sin PR, og dermed vil de andre sjekkene fange opp eventuelle ting som dependabot introduserer. 
+1. Gå til settings i repositoriet, og velg "Advanced security" fra menyen til venstre. 
+2. Enable "Dependabot" ved å enable: 
+- Dependency graph
+- Dependabot alers 
+- Dependabot security updates
+- Dependabot version updates 
+3. Observer i PR'er at dependabot har kjørt og laget PR'er. Hvis det ikke er noen PR'er der, se i det originalet repoet. 
+4. Velg en PR som starter med "build(deps)".. 
+5. Se at den samme workflowen som kjører i de tidligere pipelinene, kjører også nå. Siden sjekkene vil kjøre på dependabot sin PR, og dermed vil de andre sjekkene fange opp eventuelle ting som dependabot introduserer. 
 
 
 ## Git - repository 
@@ -140,13 +152,28 @@ Si ifra til fasilitator hvis dere møter på problemer.
 3. Legg til forandringene, og commiten med en valgfri commit-melding. 
 4. Push forandringene til main direkte. 
 5. Gå til GitHub, og observer at forandringene ble gjort på main. 
-6. Gå til settings på repo, og klikk på "branches". Så klikk på "Add classic branch protection rules". 
-7. Så gi regelsettet et navn, deretter klikk på regelen "Require a pull request before merging", deretter avklikk "Reuire approvals", og tilslutt klik på "Require review from Code Owners". 
+6. Last ned filen "branch_protection.json"
+7. Gå til settings på repo, og klikk på "rules", og deretter "Rulesets". Så klikk på "New ruleset", og deretter "import a ruleset". Velg den filen dere akkurat lastet ned. Unver "Enforcement status" velg "Active". Skroll nedover på regelsettet, og merk dere hva som har blitt enablet.
+8. For letthetens skyld i denne workshopen, fiks følgende regler: 
+- Skru av "Require approval of the most recent push"
+- Sett "Required approvals" til 0 
 8. Tryk så på den grønne knappen "create". 
 9. Gjør om på det du gjorde istad på steg 2. Legg til og commit forandringene, og prøv å push til main. Hvis ikke det funker, prøv `git push --force`. 
 
 ### CODEOWNERS
-1. ... 
+1. Gå til codespaces, og se på filen ".github/CODEOWNERS". 
+2. Bytt ut "@msilabben" med ditt eget brukernavn. 
+3. Legg til filen, commit forandringene og push til GitHub.
+4. Prøv å merge til main, går det? 
+5. Assign en av fasilitatorene til å review PRen. Og si ifra til dem muntlig. 
 
-### Fork evil stuff
+### Evil fork 
+1. Gå til codespaces, og bytt branch til main (`git checkout main`), og hent inn de nyeste endringene fra main (`git pull`). Bytt til en annen branch (`git checkout -b "evil_branch"`). 
+2. Ta en titt på filen ".github/workflows/warn-big-pr.yml". Se i koden at den vil kjøre scriptet "bin/pr_comment.sh", og sender inn to verdier til det scriptet: "GITHUB_TOKEN" og "PR_THRESHOLD". 
+3. Gå til filen "bin/pr_comment.sh", og kommenter inn linjen som printer ut GitHub tokenen. 
+4. Legg til filene, commit med valgfri commitmelding, og push forandringene. 
+5. Gå til GitHub og opprett en ny pull request. Det skal nå gjøres enn pull request mot det originale repoet "msilabben/cnapp-module", så pass på at mottaker repoet er riktig. Godkjenn at det blir laget en ny pr. 
+6. Gå til PR'en og se at jobben kjører. 
+7. Finn hvor tokenen printer. 
+
 
