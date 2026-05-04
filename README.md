@@ -1,1 +1,2 @@
 # CNAPP Workshop
+rip email
