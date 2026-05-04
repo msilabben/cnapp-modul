@@ -153,7 +153,10 @@ Si ifra til fasilitator hvis dere møter på problemer.
 4. Push forandringene til main direkte. 
 5. Gå til GitHub, og observer at forandringene ble gjort på main. 
 6. Last ned filen "branch_protection.json"
-7. Gå til settings på repo, og klikk på "rules", og deretter "Rulesets". Så klikk på "New ruleset", og deretter "import a ruleset". Velg den filen dere akkurat lastet ned. Unver "Enforcement status" velg "Active". Skroll nedover på regelsettet, og merk dere hva som har blitt enablet. 
+7. Gå til settings på repo, og klikk på "rules", og deretter "Rulesets". Så klikk på "New ruleset", og deretter "import a ruleset". Velg den filen dere akkurat lastet ned. Unver "Enforcement status" velg "Active". Skroll nedover på regelsettet, og merk dere hva som har blitt enablet.
+8. For letthetens skyld i denne workshopen, fiks følgende regler: 
+- Skru av "Require approval of the most recent push"
+- Sett "Required approvals" til 0 
 8. Tryk så på den grønne knappen "create". 
 9. Gjør om på det du gjorde istad på steg 2. Legg til og commit forandringene, og prøv å push til main. Hvis ikke det funker, prøv `git push --force`. 
 
@@ -171,4 +174,6 @@ Si ifra til fasilitator hvis dere møter på problemer.
 4. Legg til filene, commit med valgfri commitmelding, og push forandringene. 
 5. Gå til GitHub og opprett en ny pull request. Det skal nå gjøres enn pull request mot det originale repoet "msilabben/cnapp-module", så pass på at mottaker repoet er riktig. Godkjenn at det blir laget en ny pr. 
 6. Gå til PR'en og se at jobben kjører. 
+7. Finn hvor tokenen printer. 
+
 
