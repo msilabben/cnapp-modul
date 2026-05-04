@@ -41,12 +41,18 @@ Si ifra til fasilitator hvis dere møter på problemer.
 5. Fiks ".gitleaks.toml" ved å kjøre `git restore --staged .gitleaks.toml`, og `git restore .gitleaks.toml`. 
 
 
-
-### Commit sårbar kode 
-1. 
-
-
 ### Signerte commits
+**Commit som noen andre**
+1. I terminalen, sjekk loggen til git (`git log`) for se om det er en bruker du kan commite for.
+2. Kopier brukernes nav og epost, og oppdater din egen git config med det nye navnet og eposten: 
+- `git config user.email "43639886+collinlokken@users.noreply.github.com"`
+- `git config user.name "Christopher Collin Løkken"`
+3. Gjør en vilkårlig forandring, legg de til og commit dem, og push til GitHub. 
+4. Gå til GitHub og se på commiten, og legg merke til hvilken bruker som committet forandringene. 
+5. Gå tilbake til codespaces, og sett eposten og navnet til ditt eget igjen. 
+
+**Signer commit**
+
 1. I terminal, skriv inn `ssh-keygen -t ed25519 -C "navn@epost.com"`. 
 2. Kopier den offentlige nøkkelen. Det kan gjøres med å printe ut innholdet i filen og kopiere den. Print ut innholdet med `cat /home/vscode/.ssh/id_ed25519.pub` (pass på at filnavnet er korrekt) og legg den til på GitHub brukeren din. 
     - Inne på GitHub, trykk på ditt brukerikon og velg "settings". 
@@ -148,5 +154,11 @@ Si ifra til fasilitator hvis dere møter på problemer.
 ### CODEOWNERS
 1. ... 
 
-### Fork evil stuff
+### Evil fork 
+1. Gå til codespaces, og bytt branch til main (`git checkout main`), og hent inn de nyeste endringene fra main (`git pull`). Bytt til en annen branch (`git checkout -b "evil_branch"`). 
+2. Ta en titt på filen ".github/workflows/warn-big-pr.yml". Se i koden at den vil kjøre scriptet "bin/pr_comment.sh", og sender inn to verdier til det scriptet: "GITHUB_TOKEN" og "PR_THRESHOLD". 
+3. Gå til filen "bin/pr_comment.sh", og kommenter inn linjen som printer ut GitHub tokenen. 
+4. Legg til filene, commit med valgfri commitmelding, og push forandringene. 
+5. Gå til GitHub og opprett en ny pull request. Det skal nå gjøres enn pull request mot det originale repoet "msilabben/cnapp-module", så pass på at mottaker repoet er riktig. Godkjenn at det blir laget en ny pr. 
+6. Gå til PR'en og se at jobben kjører. 
 
