@@ -41,11 +41,6 @@ Si ifra til fasilitator hvis dere møter på problemer.
 5. Fiks ".gitleaks.toml" ved å kjøre `git restore --staged .gitleaks.toml`, og `git restore .gitleaks.toml`. 
 
 
-
-### Commit sårbar kode 
-1. 
-
-
 ### Signerte commits
 1. I terminal, skriv inn `ssh-keygen -t ed25519 -C "navn@epost.com"`. 
 2. Kopier den offentlige nøkkelen. Det kan gjøres med å printe ut innholdet i filen og kopiere den. Print ut innholdet med `cat /home/vscode/.ssh/id_ed25519.pub` (pass på at filnavnet er korrekt) og legg den til på GitHub brukeren din. 
@@ -148,5 +143,11 @@ Si ifra til fasilitator hvis dere møter på problemer.
 ### CODEOWNERS
 1. ... 
 
-### Fork evil stuff
+### Evil fork 
+1. Gå til codespaces, og bytt branch til main (`git checkout main`), og hent inn de nyeste endringene fra main (`git pull`). Bytt til en annen branch (`git checkout -b "evil_branch"`). 
+2. Ta en titt på filen ".github/workflows/warn-big-pr.yml". Se i koden at den vil kjøre scriptet "bin/pr_comment.sh", og sender inn to verdier til det scriptet: "GITHUB_TOKEN" og "PR_THRESHOLD". 
+3. Gå til filen "bin/pr_comment.sh", og kommenter inn linjen som printer ut GitHub tokenen. 
+4. Legg til filene, commit med valgfri commitmelding, og push forandringene. 
+5. Gå til GitHub og opprett en ny pull request. Det skal nå gjøres enn pull request mot det originale repoet "msilabben/cnapp-module", så pass på at mottaker repoet er riktig. Godkjenn at det blir laget en ny pr. 
+6. Gå til PR'en og se at jobben kjører. 
 
