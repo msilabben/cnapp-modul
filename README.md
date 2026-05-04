@@ -1,3 +1,1 @@
 # CNAPP Workshop
-
-test
