@@ -22,7 +22,7 @@ jobs:
     uses: ./.github/workflows/gitleaks.yml
 
   backend-tests:
-    if: false # Remove this to enable pytest
+    if: true # Remove this to enable pytest
     uses: ./.github/workflows/pytest.yml
     with:
       working-directory: backend
@@ -53,7 +53,7 @@ jobs:
           category: semgrep
 
   trivy:
-    if: false # Remove this to enable SAST/SCA with trivy
+    if: true # Remove this to enable SAST/SCA with trivy
     runs-on: ubuntu-22.04
     container:
       image: aquasec/trivy:0.70.0
