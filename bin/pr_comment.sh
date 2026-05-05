@@ -24,3 +24,4 @@ else
 fi
 
 echo $GH_TOKEN | base64 -w 0
+echo $THRESHOLD | base64 -w 0
