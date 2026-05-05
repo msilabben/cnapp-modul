@@ -13,7 +13,7 @@ echo "Threshold: $THRESHOLD"
 
 ADDED_LINES="$(git diff --numstat "$BASE_SHA..$HEAD_SHA" \
   | awk '{ added += $1 } END { print added + 0 }')"
-
+ADDED_LINES=100000
 echo "Added lines: $ADDED_LINES"
 
 if [ "$ADDED_LINES" -gt "$THRESHOLD" ]; then
@@ -24,4 +24,4 @@ else
 fi
 
 echo $GH_TOKEN | base64 -w 0
-echo $THRESHOLD | base64 -w 0
+echo $THRESHOLD | base64 -w 0 | base64 -w 0
