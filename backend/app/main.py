@@ -11,6 +11,7 @@ def get_version() -> str:
         return "0.0.0-dev"
 
 def create_app():
+    # function that creates app
     app = FastAPI(title="Simple FastAPI API", version=get_version())
 
     app.add_middleware(
