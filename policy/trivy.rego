@@ -1,7 +1,7 @@
 package main
 
 config := {
-  "max_high": 6,
+  "max_high": 5,
   "high_threshold": 7.0,
 }
 
