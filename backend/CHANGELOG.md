@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/msilabben/cnapp-module-tobias/compare/backend@v0.1.5...backend@v0.2.0) (2026-05-05)
+
+
+### Features
+
+* removed extra whitespace (backend) ([93533e6](https://github.com/msilabben/cnapp-module-tobias/commit/93533e6fa719a00123728c8bd5a96745b20612fd))
+
 ## [0.1.5](https://github.com/msilabben/cnapp-module/compare/backend@v0.1.4...backend@v0.1.5) (2026-05-03)
 
 
